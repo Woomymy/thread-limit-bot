@@ -1,0 +1,19 @@
+{
+    "include": [
+        "src/**/*.ts"
+    ],
+    "exclude": [
+        "node_modules/*",
+        "dist/"
+    ],
+    "compilerOptions": {
+        "allowJs": false,
+        "target": "esnext",
+        "skipLibCheck": true,
+        "declaration": true,
+        "outDir": "dist",
+        "moduleResolution": "node",
+        "module": "esnext",
+        "esModuleInterop": true
+    }
+}
