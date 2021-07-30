@@ -1,3 +1,3 @@
-# Threads test bot
+# Thread limit bots
 
-Discord Bot who joins threads when they are created and on startup
+Limits threads number per user
