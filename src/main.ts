@@ -1,6 +1,8 @@
 import { config as envconfig } from "dotenv";
 envconfig();
 import { Client, Intents, Message, ThreadChannel } from "discord.js";
+// Threads created by user cache
+const theadCache = new Map<string, number>();
 
 const client = new Client({
   intents: new Intents(["GUILD_MESSAGES", "GUILDS"]),
@@ -10,7 +12,14 @@ client.login(process.env.TOKEN);
 
 client.on("messageCreate", async (msg: Message) => {
   if (msg.content == "t!ping") {
-    msg.reply("Hello");
+    const base = Date.now();
+    msg.reply("Mesure...").then((m: Message) => {
+      m.edit(
+        `${
+          Date.now() - base < 250 ? "🟢" : 500 < Date.now() ? "🔴" : "🟡"
+        }Pong! 🏓 en ${Date.now() - base}ms`
+      );
+    });
   }
 });
 client.on("threadCreate", async (tc: ThreadChannel) => {
