@@ -29,6 +29,30 @@ client.on("messageCreate", async (msg: Message) => {
         nthreads > 1 ? "s" : ""
       }`
     );
+  } else if (msg.content === "t!botinfo") {
+    msg.channel.send({
+      embeds: [
+        {
+          title: `Informations de ${client.user.username}`,
+          color: "RANDOM",
+          fields: [
+            {
+              name: "Source",
+              value: `Mon code est disponible sur [GitHub](https://github.com/Woomymy/thread-limit-bot), n'hésitez pas à contribuer!`,
+            },
+            {
+              name: "License",
+              value:
+                "Ce projet est sous license [MIT](https://github.com/Woomymy/thread-limit-bot/blob/main/LICENSE)",
+            },
+            {
+              name: "Auteurs",
+              value: `Fait avec ❤️ par [Woomymy](https://github.com/Woomymy) avec l'aide des membres de la [FII](https://discord.gg/RyGNjns)`,
+            },
+          ],
+        },
+      ],
+    });
   }
 });
 client.on("threadUpdate", (otc, ntc) => {
