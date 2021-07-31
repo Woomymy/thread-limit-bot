@@ -1,5 +1,3 @@
-import { config as envconfig } from "dotenv";
-envconfig();
 import { Client, Intents, Message, ThreadChannel } from "discord.js";
 import { addThread } from "./addThread.js";
 import { removeThread } from "./removeThread.js";
