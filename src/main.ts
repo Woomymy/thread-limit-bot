@@ -51,6 +51,15 @@ client.on("messageCreate", async (msg: Message) => {
         },
       ],
     });
+  } else if (msg.content.startsWith(process.env.PREFIX)) {
+    msg.reply(
+      `Command \`${msg.content.split(" ")[0]}\` introuvable.\nPréfixe: ${
+        process.env.PREFIX
+      }\nListe des commandes:
+        \`ping\`: Obtenir le ping du bot
+        \`botinfo\`: Obtenir les informations du bot
+        \`nthreads\`: Obtenir le nombre de fils que vous avez créé`
+    );
   }
 });
 client.on("threadUpdate", (otc, ntc) => {
