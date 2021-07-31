@@ -11,8 +11,7 @@
   "type": "module",
   "license": "MIT",
   "dependencies": {
-    "discord.js": "^13.0.0-dev.4f1f32f.1627517033",
-    "dotenv": "^10.0.0"
+    "discord.js": "^13.0.0-dev.4f1f32f.1627517033"
   },
   "devDependencies": {
     "@types/node": "^16.4.6",
