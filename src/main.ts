@@ -4,7 +4,7 @@ import { Client, Intents, Message, ThreadChannel } from "discord.js";
 import { addThread } from "./addThread.js";
 import { removeThread } from "./removeThread.js";
 // Threads created by user cache
-const threadCache = new Map<`${bigint}`, number>();
+const threadCache = new Map<string, number>();
 
 const client = new Client({
   intents: new Intents(["GUILD_MESSAGES", "GUILDS"]),
@@ -23,7 +23,7 @@ client.on("messageCreate", async (msg: Message) => {
       );
     });
   } else if (msg.content === "t!nthreads") {
-    const nthreads = threadCache.get(msg.author.id) || 0;
+    const nthreads = threadCache.get(`${msg.guild.id}${msg.author.id}`) || 0;
     msg.reply(
       `Vous avez créé ${nthreads == 0 ? "aucun" : nthreads} thread${
         nthreads > 1 ? "s" : ""
@@ -33,31 +33,31 @@ client.on("messageCreate", async (msg: Message) => {
 });
 client.on("threadUpdate", (otc, ntc) => {
   if (!otc.archived && ntc.archived) {
-    console.log(`Thread ${ntc.name} has been archived`);
-    removeThread(threadCache, ntc.ownerId);
+    console.log(`Thread ${ntc.name} on ${ntc.guild.name} has been archived`);
+    removeThread(threadCache, `${ntc.guildId}${ntc.ownerId}`);
     return;
   } else if (otc.archived && !ntc.archived) {
-    console.log(`Thread ${ntc.name} has been unarchived`);
-    addThread(threadCache, ntc.ownerId);
+    console.log(`Thread ${ntc.name} on ${ntc.guild.name} has been unarchived`);
+    addThread(threadCache, `${ntc.guildId}${ntc.ownerId}`);
   }
 });
 client.on("threadCreate", async (tc: ThreadChannel) => {
-  addThread(threadCache, tc.ownerId);
-  console.log(`New thread by ${tc.ownerId}`);
-  if (threadCache.get(tc.ownerId) > 1) {
+  addThread(threadCache, `${tc.guildId}${tc.ownerId}`);
+  console.log(`New thread by ${tc.ownerId} on ${tc.guild.name}`);
+  if (threadCache.get(`${tc.guildId}${tc.ownerId}`) > 1) {
     await tc.delete(`User a déjà créé 1 thread`);
   }
 });
 client.on("threadDelete", (tc) => {
-  console.log(`Thread ${tc.name} has been deleted`);
-  removeThread(threadCache, tc.ownerId);
+  console.log(`Thread ${tc.name} on ${tc.guild.name} has been deleted`);
+  removeThread(threadCache, `${tc.guildId}${tc.ownerId}`);
 });
 client.on("ready", () => {
   console.log("READY");
   client.channels.cache.forEach(async (chan) => {
     if (chan.isThread() && !chan.archived) {
       await chan.join();
-      addThread(threadCache, chan.ownerId);
+      addThread(threadCache, `${chan.guildId}${chan.ownerId}`);
     }
   });
 });
