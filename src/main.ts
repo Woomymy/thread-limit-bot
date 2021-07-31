@@ -33,23 +33,19 @@ client.on("messageCreate", async (msg: Message) => {
 });
 client.on("threadUpdate", (otc, ntc) => {
   if (!otc.archived && ntc.archived) {
-    console.log(`Thread ${ntc.name} on ${ntc.guild.name} has been archived`);
     removeThread(threadCache, `${ntc.guildId}${ntc.ownerId}`);
     return;
   } else if (otc.archived && !ntc.archived) {
-    console.log(`Thread ${ntc.name} on ${ntc.guild.name} has been unarchived`);
     addThread(threadCache, `${ntc.guildId}${ntc.ownerId}`);
   }
 });
 client.on("threadCreate", async (tc: ThreadChannel) => {
   addThread(threadCache, `${tc.guildId}${tc.ownerId}`);
-  console.log(`New thread by ${tc.ownerId} on ${tc.guild.name}`);
   if (threadCache.get(`${tc.guildId}${tc.ownerId}`) > 1) {
     await tc.delete(`User a déjà créé 1 thread`);
   }
 });
 client.on("threadDelete", (tc) => {
-  console.log(`Thread ${tc.name} on ${tc.guild.name} has been deleted`);
   removeThread(threadCache, `${tc.guildId}${tc.ownerId}`);
 });
 client.on("ready", () => {
