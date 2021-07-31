@@ -13,7 +13,7 @@ const client = new Client({
 client.login(process.env.TOKEN);
 
 client.on("messageCreate", async (msg: Message) => {
-  if (msg.content == "t!ping") {
+  if (msg.content == `${process.env.PREFIX}ping`) {
     const base = Date.now();
     msg.reply("Mesure...").then((m: Message) => {
       m.edit(
@@ -22,14 +22,14 @@ client.on("messageCreate", async (msg: Message) => {
         }Pong! 🏓 en ${Date.now() - base}ms`
       );
     });
-  } else if (msg.content === "t!nthreads") {
+  } else if (msg.content === `${process.env.PREFIX}nthreads`) {
     const nthreads = threadCache.get(`${msg.guild.id}${msg.author.id}`) || 0;
     msg.reply(
       `Vous avez créé ${nthreads == 0 ? "aucun" : nthreads} thread${
         nthreads > 1 ? "s" : ""
       }`
     );
-  } else if (msg.content === "t!botinfo") {
+  } else if (msg.content === `${process.env.PREFIX}botinfo`) {
     msg.channel.send({
       embeds: [
         {
