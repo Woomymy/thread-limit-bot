@@ -19,3 +19,9 @@ services:
       - PREFIX=<YOUR_PREFIX>
     restart: always
 ```
+
+### Using the public instance
+
+A public instance is aviable with prefix `t!`
+
+[Link](https://discord.com/oauth2/authorize?client_id=870998713076682773&scope=bot&permissions=8)
