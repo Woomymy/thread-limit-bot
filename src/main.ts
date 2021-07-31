@@ -74,6 +74,8 @@ client.on("threadDelete", (tc) => {
 });
 client.on("ready", () => {
   console.log("READY");
+  client.user.setStatus("dnd");
+  client.user.setActivity("Gérer les threads");
   client.channels.cache.forEach(async (chan) => {
     if (chan.isThread() && !chan.archived) {
       await chan.join();
