@@ -72,7 +72,10 @@ client.on("threadUpdate", (otc, ntc) => {
 });
 client.on("threadCreate", async (tc: ThreadChannel) => {
   addThread(threadCache, `${tc.guildId}${tc.ownerId}`);
-  if (threadCache.get(`${tc.guildId}${tc.ownerId}`) > 1) {
+  if (
+    threadCache.get(`${tc.guildId}${tc.ownerId}`) > 1 &&
+    !tc.guild.members.cache.get(tc.ownerId).permissions.has("ADMINISTRATOR")
+  ) {
     await tc.delete(`User a déjà créé 1 thread`);
   }
 });
