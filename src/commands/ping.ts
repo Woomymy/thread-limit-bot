@@ -9,8 +9,8 @@ export default class extends Command {
         })
     }
     async run(inter: CommandInteraction) {
-        inter.reply({
-            content: 'Hello, world'
-        })
+        const base = Date.now();
+        await inter.reply("Mesure...")
+        await inter.editReply(`${Date.now() - base < 250 ? "🟢" : 500 < Date.now() ? "🔴" : "🟡"} Pong! 🏓 en ${Date.now() - base}ms`)
     }
 }
