@@ -1,0 +1,11 @@
+version: "3"
+services:
+  bot:
+    container_name: "fiitm"
+    build:
+      context: "./"
+      dockerfile: "./Dockerfile.dev"
+    volumes: 
+      - ".:/usr/src/bot"
+    env_file:
+      - ".env"
