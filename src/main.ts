@@ -1,6 +1,9 @@
 import { Client, Intents, Message, ThreadChannel } from "discord.js";
 import { addThread } from "./addThread.js";
+import CommandHandler from "./commandhandler.js";
 import { removeThread } from "./removeThread.js";
+import { initInteractions } from "./util/interactions.js";
+
 // Threads created by user cache
 const threadCache = new Map<string, number>();
 
@@ -8,7 +11,8 @@ const client = new Client({
   intents: new Intents(["GUILD_MESSAGES", "GUILDS"]),
 });
 
-client.login(process.env.TOKEN);
+const commandHandler = new CommandHandler(client);
+commandHandler.init();
 
 client.on("messageCreate", async (msg: Message) => {
   if (msg.content.startsWith(`${process.env.PREFIX}ping`)) {
@@ -92,4 +96,12 @@ client.on("ready", () => {
       addThread(threadCache, `${chan.guildId}${chan.ownerId}`);
     }
   });
+  initInteractions(client);
 });
+
+client.on('interactionCreate', async inter => {
+  if(!inter.isCommand()) return;
+  commandHandler.exec(inter);
+})
+
+client.login(process.env.TOKEN);
