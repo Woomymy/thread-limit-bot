@@ -23,11 +23,21 @@ export default class CommandHandler {
             const def = command.default
             const cmd: Command = new def();
             this.commands.set(cmd.name, cmd);
-            console.log(`Handler: Loaded cmd ${cmd.name}`)
-            this.client.guilds.cache.forEach(async guild => {
-                guild.commands.create(cmd.data);
-            })
         })
+        if (process.env.BOT_ENV === "production") {
+            this.client.application.commands.set([]);
+            this.commands.forEach(cmd => {
+                this.client.application.commands.create(cmd.data)
+            })
+        } else {
+            await this.client.guilds.fetch();
+            this.client.guilds.cache.forEach(async guild => {
+                guild.commands.set([]);
+                this.commands.forEach(cmd => {
+                    guild.commands.create(cmd.data)
+                })
+            })
+        }
     }
     async exec(inter: CommandInteraction, threadCache: Map<string, number>) {
         if (this.commands.has(inter.commandName)) {
