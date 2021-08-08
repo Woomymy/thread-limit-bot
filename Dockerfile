@@ -12,5 +12,6 @@ RUN adduser -D -H bot bot
 COPY --from=build --chown=bot:bot /app/bot/dist ./dist
 COPY --from=build --chown=bot:bot /app/bot/package.json ./package.json
 COPY --from=build --chown=bot:bot /app/bot/node_modules ./node_modules
+ENV BOT_ENV=production
 USER bot
 ENTRYPOINT [ "node", "/usr/src/bot/dist/main.js" ]
