@@ -15,12 +15,7 @@ const client = new Client({
 
 client.on("messageCreate", async (msg: Message) => {
   if (msg.content.startsWith(`${process.env.PREFIX}nthreads`)) {
-    const nthreads = threadCache.get(`${msg.guild.id}${msg.author.id}`) || 0;
-    msg.reply(
-      `Vous avez créé ${nthreads == 0 ? "aucun" : nthreads} thread${
-        nthreads > 1 ? "s" : ""
-      }`
-    );
+    
   } else if (msg.content.startsWith(process.env.PREFIX)) {
     msg.reply(
       `Commande \`${msg.content.split(" ")[0]}\` introuvable.\nPréfixe: ${
@@ -70,7 +65,7 @@ client.on("ready", () => {
 
 client.on('interactionCreate', async inter => {
   if(!inter.isCommand()) return;
-  commandHandler.exec(inter);
+  commandHandler.exec(inter, threadCache);
 })
 
 client.login(process.env.TOKEN);
