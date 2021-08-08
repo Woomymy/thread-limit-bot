@@ -23,6 +23,7 @@ export default class CommandHandler {
             const def = command.default
             const cmd: Command = new def();
             this.commands.set(cmd.name, cmd);
+            console.log(`Handler: Loaded cmd ${cmd.name}`)
             this.client.guilds.cache.forEach(async guild => {
                 guild.commands.create(cmd.data);
             })
