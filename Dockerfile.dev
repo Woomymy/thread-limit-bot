@@ -1,0 +1,11 @@
+FROM node:16-alpine3.14 as build
+WORKDIR /usr/src/bot
+COPY package*.json ./
+
+RUN npm install
+RUN npm i -g nodemon
+
+COPY ./src ./
+COPY ./tsconfig.json ./
+
+CMD nodemon --watch 'src/*' --ext 'ts' --exec 'npm run start-build'
