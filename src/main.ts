@@ -11,22 +11,6 @@ const client = new Client({
   intents: new Intents(["GUILD_MESSAGES", "GUILDS"]),
 });
 
-
-
-client.on("messageCreate", async (msg: Message) => {
-  if (msg.content.startsWith(`${process.env.PREFIX}nthreads`)) {
-    
-  } else if (msg.content.startsWith(process.env.PREFIX)) {
-    msg.reply(
-      `Commande \`${msg.content.split(" ")[0]}\` introuvable.\nPréfixe: ${
-        process.env.PREFIX
-      }\nListe des commandes:
-\`ping\`: Obtenir le ping du bot
-\`botinfo\`: Obtenir les informations du bot
-\`nthreads\`: Obtenir le nombre de fils que vous avez créé`
-    );
-  }
-});
 client.on("threadUpdate", (otc, ntc) => {
   if (!otc.archived && ntc.archived) {
     removeThread(threadCache, `${ntc.guildId}${ntc.ownerId}`);

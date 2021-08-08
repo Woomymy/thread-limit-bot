@@ -29,7 +29,7 @@ export default class CommandHandler {
             })
         })
     }
-    async exec(inter: CommandInteraction, threadCache: Map<string,number>) {
+    async exec(inter: CommandInteraction, threadCache: Map<string, number>) {
         if (this.commands.has(inter.commandName)) {
             this.commands.get(inter.commandName).run(inter, threadCache)
         }
