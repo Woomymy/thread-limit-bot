@@ -1,4 +1,4 @@
-import { Client, Intents, Message, ThreadChannel } from "discord.js";
+import { Client, Intents, ThreadChannel } from "discord.js";
 import { addThread } from "./addThread.js";
 import CommandHandler from "./commandhandler.js";
 import { removeThread } from "./removeThread.js";

@@ -13,10 +13,9 @@ version: "3"
 
 services:
   server:
-    image: woomy4680/thread-limit-bot:1.0.4 # Use the latest version, see GH releases
+    image: woomy4680/thread-limit-bot:1.1.0 # Use the latest version, see GH releases
     environment:
       - TOKEN=<YOUR_BOT_TOKEN>
-      - PREFIX=<YOUR_PREFIX>
     restart: always
 ```
 
