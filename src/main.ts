@@ -11,8 +11,7 @@ const client = new Client({
   intents: new Intents(["GUILD_MESSAGES", "GUILDS"]),
 });
 
-const commandHandler = new CommandHandler(client);
-commandHandler.init();
+
 
 client.on("messageCreate", async (msg: Message) => {
   if (msg.content.startsWith(`${process.env.PREFIX}nthreads`)) {
@@ -22,30 +21,6 @@ client.on("messageCreate", async (msg: Message) => {
         nthreads > 1 ? "s" : ""
       }`
     );
-  } else if (msg.content.startsWith(`${process.env.PREFIX}botinfo`)) {
-    msg.channel.send({
-      embeds: [
-        {
-          title: `Informations de ${client.user.username}`,
-          color: "RANDOM",
-          fields: [
-            {
-              name: "Source",
-              value: `Mon code est disponible sur [GitHub](https://github.com/Woomymy/thread-limit-bot), n'hésitez pas à contribuer!`,
-            },
-            {
-              name: "License",
-              value:
-                "Ce projet est sous license [MIT](https://github.com/Woomymy/thread-limit-bot/blob/main/LICENSE)",
-            },
-            {
-              name: "Auteurs",
-              value: `Fait avec ❤️ par [Woomymy](https://github.com/Woomymy) avec l'aide des membres de la [FII](https://discord.gg/RyGNjns)`,
-            },
-          ],
-        },
-      ],
-    });
   } else if (msg.content.startsWith(process.env.PREFIX)) {
     msg.reply(
       `Commande \`${msg.content.split(" ")[0]}\` introuvable.\nPréfixe: ${
@@ -77,6 +52,7 @@ client.on("threadCreate", async (tc: ThreadChannel) => {
 client.on("threadDelete", (tc) => {
   removeThread(threadCache, `${tc.guildId}${tc.ownerId}`);
 });
+const commandHandler = new CommandHandler(client);
 client.on("ready", () => {
   console.log("READY");
   client.user.setStatus("dnd");
@@ -87,6 +63,8 @@ client.on("ready", () => {
       addThread(threadCache, `${chan.guildId}${chan.ownerId}`);
     }
   });
+  commandHandler.init();
+
   initInteractions(client);
 });
 
