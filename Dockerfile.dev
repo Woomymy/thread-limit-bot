@@ -8,4 +8,5 @@ RUN npm i -g nodemon
 COPY ./src ./
 COPY ./tsconfig.json ./
 
+ENV BOT_ENV=dev
 CMD nodemon --watch 'src/*' --ext 'ts' --exec 'npm run start-build'
