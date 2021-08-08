@@ -8,11 +8,10 @@ export default class extends Command {
             description: 'Get your threads number'
         })
     }
-    async run(inter: CommandInteraction, threadCache: Map<string,number>) {
+    async run(inter: CommandInteraction, threadCache: Map<string, number>) {
         const nthreads = threadCache.get(`${inter.guild.id}${inter.user.id}`) || 0;
         inter.reply(
-            `Vous avez créé ${nthreads == 0 ? "aucun" : nthreads} thread${
-            nthreads > 1 ? "s" : ""
+            `Vous avez créé ${nthreads == 0 ? "aucun" : nthreads} thread${nthreads > 1 ? "s" : ""
             }`
         );
     }

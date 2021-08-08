@@ -12,5 +12,5 @@ export class Command {
         this.data = data;
     }
 
-    public async run(inter: CommandInteraction, threadCache: Map<string,number>) {}
+    public async run(inter: CommandInteraction, threadCache: Map<string, number>) { }
 }
