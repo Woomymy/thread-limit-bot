@@ -15,16 +15,7 @@ const commandHandler = new CommandHandler(client);
 commandHandler.init();
 
 client.on("messageCreate", async (msg: Message) => {
-  if (msg.content.startsWith(`${process.env.PREFIX}ping`)) {
-    const base = Date.now();
-    msg.reply("Mesure...").then((m: Message) => {
-      m.edit(
-        `${
-          Date.now() - base < 250 ? "🟢" : 500 < Date.now() ? "🔴" : "🟡"
-        }Pong! 🏓 en ${Date.now() - base}ms`
-      );
-    });
-  } else if (msg.content.startsWith(`${process.env.PREFIX}nthreads`)) {
+  if (msg.content.startsWith(`${process.env.PREFIX}nthreads`)) {
     const nthreads = threadCache.get(`${msg.guild.id}${msg.author.id}`) || 0;
     msg.reply(
       `Vous avez créé ${nthreads == 0 ? "aucun" : nthreads} thread${
