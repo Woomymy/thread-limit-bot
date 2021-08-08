@@ -8,7 +8,7 @@ import { initInteractions } from "./util/interactions.js";
 const threadCache = new Map<string, number>();
 
 const client = new Client({
-  intents: new Intents(["GUILD_MESSAGES", "GUILDS"]),
+  intents: new Intents(["GUILDS"]),
 });
 
 client.on("threadUpdate", (otc, ntc) => {
@@ -48,7 +48,7 @@ client.on("ready", () => {
 });
 
 client.on('interactionCreate', async inter => {
-  if(!inter.isCommand()) return;
+  if (!inter.isCommand()) return;
   commandHandler.exec(inter, threadCache);
 })
 

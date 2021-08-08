@@ -5,13 +5,21 @@ export default class extends Command {
     constructor() {
         super({
             name: 'nthreads',
-            description: 'Get your threads number'
+            description: 'Get your threads number',
+            options: [
+                {
+                    name: "user",
+                    description: 'L\'utilisateur',
+                    type: "USER"
+                }
+            ]
         })
     }
     async run(inter: CommandInteraction, threadCache: Map<string, number>) {
-        const nthreads = threadCache.get(`${inter.guild.id}${inter.user.id}`) || 0;
+        const user = inter.options.get("user")?.user ?? inter.user;
+        const nthreads = threadCache.get(`${inter.guild.id}${user.id}`) || 0;
         inter.reply(
-            `Vous avez créé ${nthreads == 0 ? "aucun" : nthreads} thread${nthreads > 1 ? "s" : ""
+            `${user.username} a créé ${nthreads == 0 ? "aucun" : nthreads} thread${nthreads > 1 ? "s" : ""
             }`
         );
     }
