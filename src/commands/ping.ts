@@ -5,7 +5,7 @@ export default class extends Command {
     constructor() {
         super({
             name: 'ping',
-            description: 'hello'
+            description: 'Obtenir le ping du bot'
         })
     }
     async run(inter: CommandInteraction) {
