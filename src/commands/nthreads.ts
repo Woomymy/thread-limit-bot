@@ -16,7 +16,7 @@ export default class extends Command {
         })
     }
     async run(inter: CommandInteraction, threadCache: Map<string, number>) {
-        if (inter.guild) {
+        if (!inter.guild) {
             inter.reply("Cette command ne peut pas être utilisée en messages privés!");
             return;
         }
