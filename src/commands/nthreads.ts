@@ -5,7 +5,7 @@ export default class extends Command {
     constructor() {
         super({
             name: 'nthreads',
-            description: 'Get your threads number',
+            description: 'Obtenir le nombre de threads que vous avez créé',
             options: [
                 {
                     name: "user",
