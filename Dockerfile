@@ -1,4 +1,4 @@
-FROM node:16-alpine3.14 as build
+FROM node:18-alpine3.17 as build
 WORKDIR /app/bot
 COPY ./src ./src
 COPY ./*.json ./
@@ -6,7 +6,8 @@ RUN ["npm", "install"]
 RUN ["npx", "tsc"]
 RUN rm -rf node_modules
 RUN ["npm", "install", "--production"]
-FROM node:16-alpine3.14
+
+FROM node:18-alpine3.17
 WORKDIR /usr/src/bot
 RUN adduser -D -H bot bot
 COPY --from=build --chown=bot:bot /app/bot/dist ./dist
