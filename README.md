@@ -13,7 +13,7 @@ version: "3"
 
 services:
   server:
-    image: woomy4680/thread-limit-bot:1.1.3 # Use the latest version, see GH releases
+    image: ghcr.io/woomymy/thread-limit-bot:latest # Use the latest version, see GH releases for tags
     environment:
       - TOKEN=<YOUR_BOT_TOKEN>
     restart: always
