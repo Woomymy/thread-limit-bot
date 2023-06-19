@@ -30,12 +30,12 @@ client.on(
 
 client.on("threadCreate", async (tc: ThreadChannel): Promise<void> => {
   addThread(threadCache, `${tc.guildId}${tc.ownerId}`);
+  
+  const threadOwner = await tc.guild.members.fetch(tc.ownerId ?? "");
+
   if (
-    (threadCache.get(`${tc.guildId}${tc.ownerId}`) ??
-    0) > 1 &&
-      !(tc.guild.members.cache
-        .get(tc.ownerId ?? "")
-        ?.permissions.has("Administrator"))
+    (threadCache.get(`${tc.guildId}${tc.ownerId}`) ?? 0) > 1 &&
+      !(threadOwner?.permissions.has("Administrator"))
   ) {
     await tc.delete(`User a déjà créé 1 thread`);
   }
