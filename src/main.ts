@@ -31,9 +31,9 @@ client.on(
 client.on("threadCreate", async (tc: ThreadChannel): Promise<void> => {
   addThread(threadCache, `${tc.guildId}${tc.ownerId}`);
   if (
-    threadCache.get(`${tc.guildId}${tc.ownerId}`) ??
-    (0 > 1 &&
-      !tc.guild.members.cache
+    (threadCache.get(`${tc.guildId}${tc.ownerId}`) ??
+    0) > 1 &&
+      !(tc.guild.members.cache
         .get(tc.ownerId ?? "")
         ?.permissions.has("Administrator"))
   ) {
